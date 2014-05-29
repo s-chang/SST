@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Window">
+      <UniqueIdentifier>{9648d490-08c4-46ff-9f7b-74ba1928d40e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine">
+      <UniqueIdentifier>{dd667dbe-cff9-460a-bc83-b1e352cda09a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\DX">
+      <UniqueIdentifier>{7efcb627-0ee4-4707-b42a-6b49b6058bb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Input">
+      <UniqueIdentifier>{c1053735-12a2-4818-9ef6-c04b8f788cfc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Timer">
+      <UniqueIdentifier>{94e952bc-ed79-4a1f-be26-5b789c9dcedb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Graphics">
+      <UniqueIdentifier>{18bd879b-2c6e-4a1e-8b3d-b620582a7fd0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Asset">
+      <UniqueIdentifier>{98447e5a-b93e-4fe3-8cfd-60a42297e997}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Asset\Drawable">
+      <UniqueIdentifier>{825a8b6b-6af4-417c-a83d-1051b0c7dd3f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Sound">
+      <UniqueIdentifier>{7660cdf8-e54a-4c15-bcec-f3b2e7b6a4ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Text">
+      <UniqueIdentifier>{3472ceda-2eb0-437f-aca8-da1abf9d5f53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game">
+      <UniqueIdentifier>{5753a3c8-0f00-42ff-ade5-f08bfef2921e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CWindow.cpp">
+      <Filter>Source Files\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="DX.cpp">
+      <Filter>Source Files\Engine\DX</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Source Files\Engine\Timer</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawable.cpp">
+      <Filter>Source Files\Asset\Drawable</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics.cpp">
+      <Filter>Source Files\Engine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Sound.cpp">
+      <Filter>Source Files\Engine\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="Text.cpp">
+      <Filter>Source Files\Engine\Text</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="TestObj.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="RawInput.cpp">
+      <Filter>Source Files\Engine\Input</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CWindow.h">
+      <Filter>Source Files\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Macros.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DX.h">
+      <Filter>Source Files\Engine\DX</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>Source Files\Engine\Timer</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics.h">
+      <Filter>Source Files\Engine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawable.h">
+      <Filter>Source Files\Asset\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound.h">
+      <Filter>Source Files\Engine\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="Text.h">
+      <Filter>Source Files\Engine\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Source Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineHeaders.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TestObj.h">
+      <Filter>Source Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="RawInput.h">
+      <Filter>Source Files\Engine\Input</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Textures2D.txt">
+      <Filter>Source Files\Asset</Filter>
+    </Text>
+    <Text Include="SoundEffects.txt">
+      <Filter>Source Files\Asset</Filter>
+    </Text>
+    <Text Include="BGM.txt">
+      <Filter>Source Files\Asset</Filter>
+    </Text>
+  </ItemGroup>
+</Project>
