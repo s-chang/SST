@@ -3,7 +3,7 @@
 #include "DX.h"
 
 //helper function
-std::wstring string2wstring( const std::string &word)
+std::wstring string2wstring( const std::string word)
 {
 	int length;
 	int slength = (int)word.length() + 1;
@@ -86,14 +86,15 @@ void Engine::Graphics::load()
 	struct temp_Data
 	{
 		std::string temp_handle;
-		LPCWSTR temp_file_name;
+		std::wstring temp_file_name;
 	};
 
 	std::vector<temp_Data> tempStorageData;
 
 	//TODO: read from text file
 	std::ifstream file("Textures2D.txt");
-	std::wstring wtemp;
+	//std::wstring wtemp;
+
 	//read til end of file
 	while(!file.eof())
 	{
@@ -101,18 +102,22 @@ void Engine::Graphics::load()
 		file >> temp_file_name >> temp_handle;
 
 		//create a temporary struct to hold data
+		
 		temp_Data some_data;
 		some_data.temp_file_name = L"";
 		some_data.temp_handle = temp_handle;
 		
 		//convert string to LPCWSTR 
-		//std::wstring wtemp = std::wstring(temp_file_name.begin(), temp_file_name.end());
+		some_data.temp_file_name = std::wstring(temp_file_name.begin(), temp_file_name.end());
 		//LPCWSTR stemp = wtemp.c_str();
-		wtemp = string2wstring(temp_file_name);
-		some_data.temp_file_name = wtemp.c_str();
+		//some_data.temp_file_name = stemp;
+		//wtemp = string2wstring(temp_file_name);
+		//some_data.temp_file_name = wtemp.c_str();
+		
 
 		//push back the data
 		tempStorageData.push_back(some_data);
+		
 		
 	}
 	//end of file, close file
@@ -122,7 +127,7 @@ void Engine::Graphics::load()
 	for(unsigned int i = 0; i < tempStorageData.size(); i++)
 	{
 		D3DXCreateTextureFromFileEx(Engine::DX::instance()->getDevice(),
-			tempStorageData[i].temp_file_name, 0, 0, 0, 0,
+			tempStorageData[i].temp_file_name.c_str(), 0, 0, 0, 0,
 			D3DFMT_UNKNOWN, D3DPOOL_MANAGED, D3DX_DEFAULT, D3DX_DEFAULT,
 			D3DCOLOR_XRGB(255,255,255), &temp_storage.info, 0, &temp_storage.texture);
 		temp_storage.handle = tempStorageData[i].temp_handle;

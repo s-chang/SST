@@ -48,6 +48,13 @@ int Engine::RawInput::getButton(WPARAM wparam)
 	case MK_RBUTTON:
 		return RIGHT_BUTTON;
 		break;
+	case VK_ADD:
+		return ADD;
+		break;
+	case VK_SUBTRACT:
+		return SUBTRACT;
+		break;
+	
 	}
 }
 

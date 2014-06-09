@@ -25,8 +25,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPTSTR lpCmdLin
 
 	//Init DirectX
 	Engine::DX::instance()->init(myhWnd, window);
-
-
+	
 
 	//create game here
 	Game game;
@@ -47,14 +46,15 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPTSTR lpCmdLin
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
 
+		}else
+		{
+
+			Engine::Timer::instance()->update();
+			//add update/render code here
+			game.update();
+			game.render();
+			Sleep(1);
 		}
-
-		Sleep(1);
-		Engine::Timer::instance()->update();
-		//add update/render code here
-		game.update();
-		game.render();
-
 	}
 
 	//shutdown game

@@ -16,9 +16,14 @@ Game::~Game()
 
 void Game::init()
 {
+	//DELETE  ->
 	test1.init();
 	test1.setHandle("block");
-		
+
+	test2.init();
+	test2.setHandle("FFT");
+
+	//-> HERE
 
 	Engine::Graphics::instance()->init();
 	Engine::Sound::instance()->init();
@@ -30,8 +35,11 @@ void Game::update()
 
 	Engine::Sound::instance()->update();
 
-	test1.update();
 
+	//Delete from here
+	test1.update();
+	//test2.update();
+	//TO here
 
 }
 
@@ -51,7 +59,11 @@ void Game::render()
 			//		Engine::Graphics::instance()->render(drawQ.front());
 			//		drawQ.pop();
 			//	}
+				//DELETE --->
 				Engine::Graphics::instance()->render(test1);
+				Engine::Graphics::instance()->render(test2);
+
+				//---->Here
 				Engine::DX::instance()->getSprite()->End();
 
 				/*while(!textQ.empty())

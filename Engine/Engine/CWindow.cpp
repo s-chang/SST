@@ -51,6 +51,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wparam, LPARAM lparam)
 		}
 	case WM_KEYDOWN:
 		{
+			Engine::RawInput::instance()->getButton(wparam);
 			switch(wparam)
 			{
 			case VK_ESCAPE:

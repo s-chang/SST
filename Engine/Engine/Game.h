@@ -20,6 +20,7 @@ private:
 	std::queue<TextData> textQ;*/
 	
 	TestObj test1;
+	TestObj test2;
 	
 	void reset();
 	
