@@ -262,4 +262,6 @@ public:
 	Description:	Returns the handle.
 	*/
 	std::string getHandle();
+
+	void set3D(bool arg){ is3D = arg;}
 };

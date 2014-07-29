@@ -21,8 +21,12 @@ private:
 	
 	TestObj test1;
 	TestObj test2;
+
+	TestObj mesh1;
 	
 	void reset();
+
+	MSG msg;
 	
 public:
 	Game();
@@ -30,7 +34,7 @@ public:
 
 	void init();
 
-	void update();
+	void update(MSG &msg);
 	void render();
 
 	void shutdown();

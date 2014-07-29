@@ -14,8 +14,13 @@ Description:  The graphics class handles all of the drawing to the screen.
 #pragma comment(lib, "d3d9.lib")
 #pragma comment(lib, "d3dx9.lib")
 
-typedef IDirect3DTexture9* pTexture;
+#include "Mesh.h"
+#include "Camera.h"
+#include "Light.h"
+
+typedef IDirect3DTexture9* pDirectTexture;
 typedef D3DXIMAGE_INFO iInfo;
+
 
 namespace Engine
 {
@@ -24,21 +29,40 @@ namespace Engine
 	private:
 		struct Storage
 		{
-			pTexture texture;
+			pDirectTexture texture;
 			iInfo	info;
 			std::string handle;		
 		};
-
-		pTexture error;
+		
+		pDirectTexture error;
 		iInfo errorinfo;
 
-		std::vector<Storage> storage;
-
-		Graphics();
+		std::vector<Storage> storage;	
+		
 		void load();
-		pTexture getTexture(const std::string handle);
+		
+		pDirectTexture getTexture(const std::string handle);
 		iInfo getInfo(const std::string handle);
 
+
+		struct MeshStorage
+		{
+			Mesh mesh;
+			std::string handle;
+		};
+		std::vector<MeshStorage> meshStorage;
+		Mesh getMesh(const std::string handle);
+		void loadMesh();
+		pBuffer adjBuffer;
+		
+		Camera camera;
+		Light light;
+
+		ID3DXBuffer*	m_EffectError;
+		ID3DXEffect*	m_Effect;
+		D3DXHANDLE		m_tech;
+
+		Graphics();
 	public:
 		~Graphics();
 

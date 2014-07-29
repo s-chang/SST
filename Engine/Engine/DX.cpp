@@ -152,6 +152,7 @@ void Engine::DX::fullscreen()
 {
 	window = false;
 	D3Dpp.Windowed = window;
+	D3Dpp.FullScreen_RefreshRateInHz			= window ? 0 : D3DPRESENT_RATE_DEFAULT;
 	OnResetDevice();
 }
 
@@ -159,5 +160,11 @@ void Engine::DX::windowed()
 {
 	window = true;
 	D3Dpp.Windowed = window;
+	D3Dpp.FullScreen_RefreshRateInHz			= window ? 0 : D3DPRESENT_RATE_DEFAULT;
 	OnResetDevice();
+}
+
+bool Engine::DX::isWindowed()
+{
+	return window;
 }

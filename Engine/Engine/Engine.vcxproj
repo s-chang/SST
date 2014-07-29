@@ -51,6 +51,11 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <FxCompile>
+      <ShaderModel>2.0</ShaderModel>
+      <EntryPointName />
+      <ShaderType>Effect</ShaderType>
+    </FxCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -67,12 +72,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CWindow.cpp" />
     <ClCompile Include="Drawable.cpp" />
     <ClCompile Include="DX.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Graphics.cpp" />
+    <ClCompile Include="Light.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="RawInput.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="TestObj.cpp" />
@@ -80,13 +88,16 @@
     <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="CWindow.h" />
     <ClInclude Include="Drawable.h" />
     <ClInclude Include="DX.h" />
     <ClInclude Include="EngineHeaders.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Graphics.h" />
+    <ClInclude Include="Light.h" />
     <ClInclude Include="Macros.h" />
+    <ClInclude Include="Mesh.h" />
     <ClInclude Include="RawInput.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="TestObj.h" />
@@ -95,8 +106,12 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="BGM.txt" />
+    <Text Include="Meshes.txt" />
     <Text Include="SoundEffects.txt" />
     <Text Include="Textures2D.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Shader.fx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

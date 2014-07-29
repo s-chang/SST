@@ -42,6 +42,15 @@
     <Filter Include="Source Files\Game">
       <UniqueIdentifier>{5753a3c8-0f00-42ff-ade5-f08bfef2921e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Engine\Mesh">
+      <UniqueIdentifier>{a6c5661e-8fe7-4943-be86-d96518585906}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Camera">
+      <UniqueIdentifier>{c74b7863-45de-4249-8956-d3f3a583da0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Light">
+      <UniqueIdentifier>{0ab04e52-cae5-47f9-9c2b-0a2febdb140e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -76,6 +85,15 @@
     </ClCompile>
     <ClCompile Include="RawInput.cpp">
       <Filter>Source Files\Engine\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Source Files\Engine\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Source Files\Engine\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Light.cpp">
+      <Filter>Source Files\Engine\Light</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -115,6 +133,15 @@
     <ClInclude Include="RawInput.h">
       <Filter>Source Files\Engine\Input</Filter>
     </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Source Files\Engine\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Source Files\Engine\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Light.h">
+      <Filter>Source Files\Engine\Light</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Textures2D.txt">
@@ -126,5 +153,13 @@
     <Text Include="BGM.txt">
       <Filter>Source Files\Asset</Filter>
     </Text>
+    <Text Include="Meshes.txt">
+      <Filter>Source Files\Asset</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Shader.fx">
+      <Filter>Source Files\Asset</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

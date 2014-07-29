@@ -5,7 +5,7 @@
 class TestObj : public Drawable
 {
 private:
-	float x, y;
+	float x, y, z;
 public:
 	TestObj();
 	~TestObj();

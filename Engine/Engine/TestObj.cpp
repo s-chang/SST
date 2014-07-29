@@ -13,7 +13,7 @@ TestObj::~TestObj()
 void TestObj::init()
 {
 	Drawable::init();
-	x = y = 0.0f;
+	x = y = z = 0.0f;
 }
 
 void TestObj::update()

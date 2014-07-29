@@ -109,6 +109,8 @@ namespace Engine
 		Description:	switch to windowed
 		*/
 		void windowed();
+
+		bool isWindowed();
 	};
 
 };

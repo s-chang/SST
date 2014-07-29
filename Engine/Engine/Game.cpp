@@ -23,6 +23,13 @@ void Game::init()
 	test2.init();
 	test2.setHandle("FFT");
 
+	mesh1.init();
+//	mesh1.setScale(5.0f, 5.0f, 5.0f);
+	mesh1.setHandle("dood");
+	mesh1.set3D(true);
+
+
+
 	//-> HERE
 
 	Engine::Graphics::instance()->init();
@@ -30,15 +37,37 @@ void Game::init()
 	Engine::Text::instance()->init();
 }
 
-void Game::update()
+void Game::update(MSG &msg)
 {
 
 	Engine::Sound::instance()->update();
 
-
+	this->msg = msg;
 	//Delete from here
 	test1.update();
+
+	float y = mesh1.getRotate().y + Engine::Timer::instance()->getDT() * 5.0f;
+	if( y > 360)
+		y = 0;
+	mesh1.setRotate(mesh1.getRotate().x, y, mesh1.getRotate().z);
+	//mesh1.update();
 	//test2.update();
+	/*static float x = 0.0f;
+
+	x += Engine::Timer::instance()->getDT();
+
+	if(x >= 3.0f)
+	{
+		x = 0.0f;
+
+		if(Engine::DX::instance()->isWindowed())
+			Engine::DX::instance()->fullscreen();
+		else
+			Engine::DX::instance()->windowed();
+		
+
+	}*/
+	
 	//TO here
 
 }
@@ -60,8 +89,10 @@ void Game::render()
 			//		drawQ.pop();
 			//	}
 				//DELETE --->
-				Engine::Graphics::instance()->render(test1);
-				Engine::Graphics::instance()->render(test2);
+				//Engine::Graphics::instance()->render(test1);
+				//Engine::Graphics::instance()->render(test2);
+
+				Engine::Graphics::instance()->render(mesh1);
 
 				//---->Here
 				Engine::DX::instance()->getSprite()->End();
@@ -75,6 +106,8 @@ void Game::render()
 			}
 		}
 		Engine::DX::instance()->getDevice()->EndScene();
+
+
 	}
 	Engine::DX::instance()->getDevice()->Present(0,0,0,0);
 }

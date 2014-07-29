@@ -51,7 +51,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPTSTR lpCmdLin
 
 			Engine::Timer::instance()->update();
 			//add update/render code here
-			game.update();
+			game.update(msg);
 			game.render();
 			Sleep(1);
 		}
