@@ -114,4 +114,16 @@ void Mesh::shutdown()
 	SAFE_RELEASE(effect);
 	SAFE_RELEASE(mat_buffer);
 	SAFE_RELEASE(mesh);
+
+	if(mesh_material)
+	{
+		delete mesh_material;
+		mesh_material = nullptr;
+	}
+
+	if(meshTexture)
+	{
+		delete meshTexture;
+		meshTexture = nullptr;
+	}
 }

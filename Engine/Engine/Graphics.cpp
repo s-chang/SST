@@ -316,4 +316,6 @@ Mesh Engine::Graphics::getMesh(const std::string handle)
 		if(handle == meshStorage[i].handle)
 			return meshStorage[i].mesh;
 	}
+
+	//TODO: return error mesh if no mesh is found.
 }
