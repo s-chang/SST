@@ -8,6 +8,7 @@ Description:  The graphics class handles all of the drawing to the screen.
 
 #include <vector>
 #include <string>
+#include <hash_map>
 
 #include <d3d9.h>
 #include <d3dx9.h>
@@ -50,8 +51,9 @@ namespace Engine
 			Mesh mesh;
 			std::string handle;
 		};
+
 		std::vector<MeshStorage> meshStorage;
-		Mesh getMesh(const std::string handle);
+		Mesh* getMesh(const std::string handle);
 		void loadMesh();
 		pBuffer adjBuffer;
 		

@@ -4,45 +4,47 @@
 
 Mesh::Mesh()
 {
-	mesh = nullptr;
-	mat_buffer = nullptr;
-	effect = nullptr;
-	mesh_material = nullptr;
-	meshTexture = nullptr;
+	mesh = NULL;
+	mat_buffer = NULL;
+	effect = NULL;
+	materials.clear();
+	textures.clear();
 }
 
 Mesh::~Mesh()
 {
+	shutdown();
 }
 
-void Mesh::loadMap(LPCWSTR filename, pBuffer adjBuffer)
+void Mesh::loadTexturedMesh(LPCWSTR filename, pBuffer adjBuffer)
 {
-	D3DXLoadMeshFromX( filename,
-						D3DXMESH_MANAGED,
-						Engine::DX::instance()->getDevice(),
-						&adjBuffer,
-						&mat_buffer,
+	pDevice device = Engine::DX::instance()->getDevice();
+	D3DXLoadMeshFromX( filename, 
+						D3DXMESH_MANAGED, 
+						device, 
+						&adjBuffer, 
+						&mat_buffer, 
 						&effect,
-						&numMaterials,
+						&numMaterials, 
 						&mesh);
 
 
-	//pull material(including texture) information from loaded .x file
+	//Pull material (including texture) information from loaded .x file
 	D3DXMATERIAL* d3dxMaterials = (D3DXMATERIAL*)mat_buffer->GetBufferPointer();
 
-	mesh_material = new D3DMATERIAL9[numMaterials];
-	meshTexture = new LPDIRECT3DTEXTURE9[numMaterials];
+	D3DMATERIAL9* mesh_material = new D3DMATERIAL9[numMaterials];
+	LPDIRECT3DTEXTURE9* meshTextures = new LPDIRECT3DTEXTURE9[numMaterials];
 
-	for(DWORD i = 0; i < numMaterials; ++i)
+	for(DWORD i = 0; i <numMaterials; ++i)
 	{
 		//Copy the material
 		mesh_material[i] = d3dxMaterials[i].MatD3D;
 
-		//Set the ambient color (if needed) for the material
+		//Set the ambient color (if needed) for the material (D3DX doesn't do this)
 		mesh_material[i].Ambient = D3DXCOLOR(0.2f, 0.2f, 0.2f, 1.0f);
 
 		//Create the texture if it exists - it may not
-		meshTexture[i] = NULL;
+		meshTextures[i] = NULL;
 
 		if(d3dxMaterials[i].pTextureFilename)
 		{
@@ -53,19 +55,29 @@ void Mesh::loadMap(LPCWSTR filename, pBuffer adjBuffer)
 			mbstowcs(ucString, d3dxMaterials[i].pTextureFilename, len);
 			LPCWSTR newfilename = (LPCWSTR)ucString;
 
-			//Load the texture
-			D3DXCreateTextureFromFile(Engine::DX::instance()->getDevice(), newfilename, &meshTexture[i]);
+			//Load the texture now that we have a valid filename
 
+			D3DXCreateTextureFromFile(device, newfilename, &meshTextures[i]);
+		
+			delete[]ucString;
 		}
 	}
-
+	for(unsigned int i = 0; i < numMaterials; i++){
+		materials.push_back(mesh_material[i]);
+	}
+	for(unsigned int i = 0; i < numMaterials; i++){
+		textures.push_back(meshTextures[i]);
+	}
+	delete [] mesh_material;
+	delete [] meshTextures;
 }
 
-void Mesh::loadCharacterMesh(LPCWSTR filename, pBuffer adjBuffer)
+void Mesh::loadMesh(LPCWSTR filename, pBuffer adjBuffer)
 {
+	pDevice device = Engine::DX::instance()->getDevice();
 	D3DXLoadMeshFromX(filename, 
 						D3DXMESH_MANAGED, 
-						Engine::DX::instance()->getDevice(), 
+						device, 
 						&adjBuffer,
 						&mat_buffer,
 						&effect, 
@@ -75,7 +87,7 @@ void Mesh::loadCharacterMesh(LPCWSTR filename, pBuffer adjBuffer)
 	// Pull material (including texture) information from loaded .x file
 	D3DXMATERIAL *d3dxMaterials = (D3DXMATERIAL*)mat_buffer->GetBufferPointer();
 
-	mesh_material = new D3DMATERIAL9[numMaterials];
+	D3DMATERIAL9* mesh_material = new D3DMATERIAL9[numMaterials];
 
 	for(DWORD i = 0; i < numMaterials; ++i)
 	{
@@ -86,8 +98,14 @@ void Mesh::loadCharacterMesh(LPCWSTR filename, pBuffer adjBuffer)
 		mesh_material[i].Ambient = D3DXCOLOR(0.2f, 0.2f, 0.2f, 1.0f);
 				
 	}
-	
+
+	for(unsigned int i = 0; i < numMaterials; i++){
+		materials.push_back(mesh_material[i]);
+	}
+
+	delete [] mesh_material;
 }
+
 
 pMesh Mesh::getMesh()
 {
@@ -99,31 +117,21 @@ DWORD Mesh::getNumMaterials()
 	return numMaterials;
 }
 
-pMaterial Mesh::getMeshMaterial()
+std::vector<D3DMATERIAL9> Mesh::getMeshMaterial()
 {
-	return mesh_material;
+	return materials;
 }
 
-pTexture Mesh::getMeshTexture()
+std::vector<LPDIRECT3DTEXTURE9> Mesh::getMeshTexture()
 {
-	return meshTexture;
+	return textures;
 }
 
 void Mesh::shutdown()
 {
+	/*materials.clear();
+	textures.clear();
 	SAFE_RELEASE(effect);
 	SAFE_RELEASE(mat_buffer);
-	SAFE_RELEASE(mesh);
-
-	if(mesh_material)
-	{
-		delete mesh_material;
-		mesh_material = nullptr;
-	}
-
-	if(meshTexture)
-	{
-		delete meshTexture;
-		meshTexture = nullptr;
-	}
+	SAFE_RELEASE(mesh);*/
 }

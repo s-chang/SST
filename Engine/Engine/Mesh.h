@@ -7,6 +7,7 @@
 #include <d3dx9.h>
 #pragma comment(lib, "d3d9.lib")
 #pragma comment(lib, "d3dx9.lib")
+#include <vector>
 
 typedef ID3DXMesh* pMesh;
 typedef ID3DXBuffer* pBuffer;
@@ -19,24 +20,24 @@ private:
 	pMesh			mesh;
 	pBuffer			mat_buffer;
 	pBuffer			effect;
+	
+	std::vector<D3DMATERIAL9> materials;
+	std::vector<LPDIRECT3DTEXTURE9> textures;
+
 	DWORD			numMaterials;
-	pMaterial		mesh_material;
-	pTexture		meshTexture;
 
 public:
 	Mesh();
 	~Mesh();
-
-	void loadMap(LPCWSTR filename, pBuffer adjBuffer);
-
-	void loadCharacterMesh(LPCWSTR filename, pBuffer adjBuffer);
+	
+	void loadTexturedMesh(LPCWSTR filename, pBuffer adjBuffer);
+	void loadMesh(LPCWSTR filename, pBuffer adjBuffer);
 
 	pMesh getMesh();
 	DWORD getNumMaterials();
-	pMaterial getMeshMaterial();
-	pTexture getMeshTexture();
+	std::vector<D3DMATERIAL9> getMeshMaterial();
+	std::vector<LPDIRECT3DTEXTURE9> getMeshTexture();
 
 	void shutdown();
-
 
 };

@@ -9,7 +9,7 @@ Camera::~Camera()
 
 void Camera::init()
 {
-	m_eyePos = dxVec3(10.0f, 7.0f, -15.0f);
+	m_eyePos = dxVec3(5.0f, 5.0f, -10.0f);
 	m_lookAt = dxVec3(0.0f, 0.0f, 0.0f);
 	m_upVec = dxVec3(0.0f, 1.0f, 0.0f);
 

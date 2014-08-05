@@ -35,12 +35,12 @@ void Engine::Graphics::init()
 	camera.setProj(800,600);
 	light.defaultInit();
 	light.setLight();
-	
+
 	//TODO: create a shader manager
 #ifdef _DEBUG
 	D3DXCreateEffectFromFile(Engine::DX::instance()->getDevice(),
-							L"Shader.fx", 0, 0, D3DXSHADER_DEBUG | D3DXSHADER_SKIPOPTIMIZATION,
-							0, &m_Effect, &m_EffectError);
+		L"Shader.fx", 0, 0, D3DXSHADER_DEBUG | D3DXSHADER_SKIPOPTIMIZATION,
+		0, &m_Effect, &m_EffectError);
 #else
 	D3DXCreateEffectFromFile(Engine::DX::instance()->getDevice(),
 		L"Shader.fx", 0, 0, 0, 0, &m_Effect, &m_ErrorEffect);
@@ -64,7 +64,7 @@ void Engine::Graphics::render(Drawable object)
 	D3DXMatrixIdentity(&scaleMat);
 	D3DXMatrixIdentity(&rotMat);
 	D3DXMatrixIdentity(&worldMat);
-		
+
 
 	if(!object.get3D())
 	{
@@ -75,7 +75,7 @@ void Engine::Graphics::render(Drawable object)
 		D3DXMatrixMultiply(&worldMat, &scaleMat, &transMat);
 
 		Engine::DX::instance()->getSprite()->SetTransform(&worldMat);
-		
+
 		Engine::DX::instance()->getSprite()->Draw(
 			getTexture(object.getHandle()),
 			object.getIsSpriteSheet() ? &object.getRect() : 0,
@@ -91,7 +91,7 @@ void Engine::Graphics::render(Drawable object)
 		UINT numPasses = 0;
 		m_Effect->Begin(&numPasses, 0);
 
-		Mesh *tempMesh = &getMesh(object.getHandle());
+		Mesh *tempMesh = getMesh(object.getHandle());
 
 		for(UINT i = 0; i < numPasses; i++)
 		{
@@ -109,22 +109,25 @@ void Engine::Graphics::render(Drawable object)
 			m_Effect->SetMatrix("worldInverseTransposeMat", &WIT);
 			m_Effect->SetMatrix("worldMat", &worldMat);
 
-						
-			m_Effect->SetValue("ambientMaterial", &tempMesh->getMeshMaterial()->Ambient, sizeof(D3DXCOLOR));
-			m_Effect->SetValue("diffuseMaterial", &tempMesh->getMeshMaterial()->Diffuse, sizeof(D3DXCOLOR));
-			m_Effect->SetValue("specularMaterial", &tempMesh->getMeshMaterial()->Specular, sizeof(D3DXCOLOR));
-			m_Effect->SetFloat("specularPower", tempMesh->getMeshMaterial()->Power);
-			m_Effect->SetBool("isTex", false);
+			for(DWORD i = 0; i < tempMesh->getNumMaterials(); i++)
+			{
+				m_Effect->SetValue("ambientMaterial", &tempMesh->getMeshMaterial()[i].Ambient, sizeof(D3DXCOLOR));
+				m_Effect->SetValue("diffuseMaterial", &tempMesh->getMeshMaterial()[i].Diffuse, sizeof(D3DXCOLOR));
+				m_Effect->SetValue("specularMaterial", &tempMesh->getMeshMaterial()[i].Specular, sizeof(D3DXCOLOR));
+				m_Effect->SetFloat("specularPower", tempMesh->getMeshMaterial()[i].Power);
+				m_Effect->SetTexture("tex", tempMesh->getMeshTexture()[i]);
+				m_Effect->SetBool("isTex", true);
 
-			m_Effect->CommitChanges();
-			tempMesh->getMesh()->DrawSubset(i);
+				m_Effect->CommitChanges();
+				tempMesh->getMesh()->DrawSubset(i);
+			}
+
+			m_Effect->EndPass();
+
+			//tempMesh = nullptr;
 		}
-
-		m_Effect->EndPass();
-
-		tempMesh = nullptr;
+		m_Effect->End();
 	}
-	m_Effect->End();
 }
 
 void Engine::Graphics::shutdown()
@@ -132,7 +135,7 @@ void Engine::Graphics::shutdown()
 	for(unsigned int i = 0; i < storage.size(); i++)
 	{
 		SAFE_RELEASE(storage[i].texture);
-		
+
 	}
 	storage.clear();
 
@@ -156,7 +159,7 @@ void Engine::Graphics::load()
 	std::string temp_file_name;
 	std::string temp_handle;
 	//LPCWSTR rFilename;
-	
+
 	struct temp_Data
 	{
 		std::string temp_handle;
@@ -176,23 +179,23 @@ void Engine::Graphics::load()
 		file >> temp_file_name >> temp_handle;
 
 		//create a temporary struct to hold data
-		
+
 		temp_Data some_data;
 		some_data.temp_file_name = L"";
 		some_data.temp_handle = temp_handle;
-		
+
 		//convert string to LPCWSTR 
 		some_data.temp_file_name = std::wstring(temp_file_name.begin(), temp_file_name.end());
 		//LPCWSTR stemp = wtemp.c_str();
 		//some_data.temp_file_name = stemp;
 		//wtemp = string2wstring(temp_file_name);
 		//some_data.temp_file_name = wtemp.c_str();
-		
+
 
 		//push back the data
 		tempStorageData.push_back(some_data);
-		
-		
+
+
 	}
 	//end of file, close file
 	file.close();
@@ -210,20 +213,20 @@ void Engine::Graphics::load()
 		//set pointer to nullptr before reusing
 		temp_storage.texture = nullptr;
 	}
-	
+
 	//TODO sort storage
 
 	//Create Error texture to show errors
 	D3DXCreateTextureFromFileEx(Engine::DX::instance()->getDevice(),
-			L"error.png", 0, 0, 0, 0,
-			D3DFMT_UNKNOWN, D3DPOOL_MANAGED, D3DX_DEFAULT, D3DX_DEFAULT,
-			D3DCOLOR_XRGB(255,255,255), &errorinfo, 0, &error);
-	
+		L"error.png", 0, 0, 0, 0,
+		D3DFMT_UNKNOWN, D3DPOOL_MANAGED, D3DX_DEFAULT, D3DX_DEFAULT,
+		D3DCOLOR_XRGB(255,255,255), &errorinfo, 0, &error);
+
 }
 
 void Engine::Graphics::loadMesh()
 {
-	
+
 	std::string temp_handle;
 	std::string temp_filename;
 
@@ -254,7 +257,7 @@ void Engine::Graphics::loadMesh()
 
 		//push object into temp storage
 		temp_data_storage.push_back(temp_store);
-		
+
 	}
 
 	//end of file, close file
@@ -266,17 +269,17 @@ void Engine::Graphics::loadMesh()
 		//Temp storage used to load data needed
 		MeshStorage temp_storage;
 
-		
+
 		//temp_storage = new MeshStorage;
 		temp_storage.handle = temp_data_storage[i].temp_data_handle;
-		temp_storage.mesh.loadCharacterMesh(temp_data_storage[i].temp_data_filename.c_str(), adjBuffer);
-		
+		temp_storage.mesh.loadTexturedMesh(temp_data_storage[i].temp_data_filename.c_str(), adjBuffer);
+
 		meshStorage.push_back(temp_storage);
 
 		//clear temp storage mesh before reuse
 		//TODO: FIX MEMORY LEAK
 		//temp_storage.mesh.shutdown();	
-		
+
 	}
 
 	//TODO: create an error mesh in case a mesh can't be found
@@ -291,7 +294,7 @@ pDirectTexture Engine::Graphics::getTexture(const std::string handle)
 		if(handle == storage[i].handle)
 			return storage[i].texture;
 	}
-	
+
 	return error;
 	//TODO: Throw error exception if no texture is found
 }
@@ -308,13 +311,13 @@ iInfo Engine::Graphics::getInfo(const std::string handle)
 	return errorinfo;
 }
 
-Mesh Engine::Graphics::getMesh(const std::string handle)
+Mesh* Engine::Graphics::getMesh(const std::string handle)
 {
 	//TODO: use search algorithm
 	for(unsigned int i = 0; i < meshStorage.size(); i++)
 	{
 		if(handle == meshStorage[i].handle)
-			return meshStorage[i].mesh;
+			return &meshStorage[i].mesh;
 	}
 
 	//TODO: return error mesh if no mesh is found.

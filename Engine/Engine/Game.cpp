@@ -25,7 +25,7 @@ void Game::init()
 
 	mesh1.init();
 //	mesh1.setScale(5.0f, 5.0f, 5.0f);
-	mesh1.setHandle("dood");
+	mesh1.setHandle("grem");
 	mesh1.set3D(true);
 
 

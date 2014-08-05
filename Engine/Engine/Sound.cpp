@@ -272,18 +272,10 @@ void Engine::Sound::stopStream()
 
 void Engine::Sound::shutdown()
 {
-	
-	for(unsigned int i = 0; i < songs.size(); i++)
-		SAFE_RELEASE2(songs[i].sound);
 	songs.clear();
-
-	for(unsigned int i = 0; i < sound_effects.size(); i++)
-		SAFE_RELEASE2(sound_effects[i].sound);
 	sound_effects.clear();
 
 	musicChannel = nullptr;
 	SAFE_RELEASE2(system);
 
-
 }
-

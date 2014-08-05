@@ -14,11 +14,11 @@ void Light::defaultInit()
 
 	light.Ambient = dXColor(1.0f, 1.0f, 1.0f, 1.0f);
 	light.Diffuse = dXColor(1.0f, 1.0f, 1.0f, 1.0f);
-	light.Specular = dXColor(1.0f, 1.0f, 1.0f, 1.0f);
+	light.Specular = dXColor(0.5f, 0.5f, 0.5f, 0.5f);
 	light.Type = D3DLIGHT_POINT;
-	light.Position = D3DXVECTOR3(0.0f, 10.0f, 0.0f);
-	light.Range = 500.0f;
-	light.Attenuation0 = 1.0f;
+	light.Position = D3DXVECTOR3(0.0f, 10.0f, -5.0f);
+	light.Range = 0.50f;
+	light.Attenuation0 = 0.09f;
 	light.Attenuation1 = 0.0f;
 	light.Attenuation2 = 0.0f;
 
